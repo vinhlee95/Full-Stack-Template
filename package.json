@@ -1,0 +1,22 @@
+{
+  "name": "full-stack-template",
+  "version": "1.0.0",
+  "description": "a repo to create a full-stack app with latest front to back end technologies",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "vinhlee95",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.3"
+  }
+}
