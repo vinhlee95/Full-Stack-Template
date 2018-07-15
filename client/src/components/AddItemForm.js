@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import {Typography, Input, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
-// import { addItem } from '../actions';
-// import { connect } from 'react-redux';
+
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class AddItemForm extends Component {
-   state = { name: '', url: '', category: '', price: '' }
+   state = { name: '', url: '', category: '', price: '', selectedFile: null }
 
    handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
-   // handleAddItem = (e) => {
-   //    e.preventDefault();
-   //    this.props.addItem(this.state.name, () => {
-   //       this.props.handleCloseModal();
-   //    });
-   // }
+   handleSelectImage = (event) => this.setState({ selectedFile: event.target.files[0] });
+
+   handleAddItem = (e) => {
+      const { name, url, category, price, selectedFile } = this.state;
+      e.preventDefault();
+      // change data format of selected image
+
+      this.props.addItem(name, url, category, price, selectedFile, () => {
+         this.props.handleCloseModal();
+      });
+   }
 
    render() {
-      // console.log(this.state)
       return(
          <form style={{ backgroundColor: 'white', zIndex: 1000}} onSubmit={e => this.handleAddItem(e)}>
             <Typography variant="headline" id="modal-title">
@@ -78,7 +83,7 @@ class AddItemForm extends Component {
 
             <Button variant="contained" className='add-file-button'
                style={{backgroundColor: '#8bc34a', width: '100%', height: 30, marginTop: 20}}>
-               <Input type='file' className='add-file-input'/>
+               <Input type='file' className='add-file-input' onChange={this.handleSelectImage} />
                <div className='add-file-text-row'>
                   <Typography variant='button' >Add images</Typography>
                </div>
@@ -86,6 +91,8 @@ class AddItemForm extends Component {
             
             <div className='confirm-button-row'>
                <Button 
+                  onClick={this.handleAddItem}
+                  type='submit'
                   variant="contained" color="primary" fullWidth
                   style={{
                      marginTop: 20,
@@ -107,4 +114,4 @@ class AddItemForm extends Component {
    }
 }
 
-export default(AddItemForm);
+export default connect(null, actions)(AddItemForm);
