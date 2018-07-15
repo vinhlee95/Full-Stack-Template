@@ -1,0 +1,46 @@
+body {
+   width: 60%;
+   margin: 10px auto !important;
+   display: 'block'
+}
+
+.form-container {
+   position: absolute;
+   width: 40%;
+   top: 20%;
+   left: 30%
+}
+
+.button-row {
+   display: flex;
+   justify-content: flex-end;
+}
+
+
+.add-file-input {
+   width: 100% !important;
+   z-index: 1;
+   opacity: 0;
+}
+
+.add-file-text-row {
+   position: absolute;
+   top: 0; left: 0;
+   width: 100% !important;
+   height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 5px;
+}
+
+.confirm-button-row {
+   display: flex;
+}
+
+.confirm-button-row button:first-child {
+   margin-right: 5px;
+}
+.confirm-button-row button:last-child {
+   margin-left: 5px;
+}
