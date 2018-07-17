@@ -1,11 +1,11 @@
 const ItemModel = require('../models/Items');
 
-module.exports = (app) => {
+module.exports = (app, upload) => {
    app.get('/', (req, res) => {
       res.send('Hi there!')
    });
 
-   app.post('/newItem', (req, res) => {
-      console.log(req.body);
+   app.post('/upload', upload.single('file'), (req, res) => {
+      res.json({ file: req.file });
    });
 }

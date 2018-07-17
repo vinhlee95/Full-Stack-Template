@@ -14,6 +14,10 @@ const ItemModel = new mongoose.Schema({
    url: {
       type: String, required: false
    },
+   image: {
+      data: Buffer,
+      contentType: String
+   },
    date: {
       type: Date, default: Date.now(),
    }

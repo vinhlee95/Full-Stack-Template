@@ -1,29 +1,49 @@
 import React, { Component } from 'react';
 import {Typography, Input, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class AddItemForm extends Component {
-   state = { name: '', url: '', category: '', price: '', selectedFile: null }
+   state = { name: '', url: '', category: '', price: '', file: null, imagePreviewUrl: '' }
 
    handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
-   handleSelectImage = (event) => this.setState({ selectedFile: event.target.files[0] });
+   handleSelectImage = (event) => {
+      let reader = new FileReader();
+      let file = event.target.files[0];
+
+      reader.onloadend = () => {
+         this.setState({
+            file,
+            imagePreviewUrl: reader.result
+         })
+      }
+
+      reader.readAsDataURL(file);
+   }
 
    handleAddItem = (e) => {
-      const { name, url, category, price, selectedFile } = this.state;
       e.preventDefault();
-      // change data format of selected image
-
-      this.props.addItem(name, url, category, price, selectedFile, () => {
-         this.props.handleCloseModal();
-      });
+      const {file } = this.state;
+      console.log(file)
+      axios.post('http://localhost:5000/upload', file)
+         .then(res => console.log(res))
+         .catch(error => console.log(error));
    }
 
    render() {
+      let { imagePreviewUrl } = this.state;
+      let imagePreview = imagePreviewUrl ? 
+                        <img 
+                           src={imagePreviewUrl} alt='item'
+                           style={styles.image} /> 
+                        : null
+
       return(
-         <form style={{ backgroundColor: 'white', zIndex: 1000}} onSubmit={e => this.handleAddItem(e)}>
+         <form style={{ backgroundColor: 'white', zIndex: 1000}} onSubmit={e => this.handleAddItem(e)} >
             <Typography variant="headline" id="modal-title">
                Your item
             </Typography>
@@ -80,10 +100,15 @@ class AddItemForm extends Component {
                placeholder="Url"
                fullWidth
             />
+            
+            {imagePreview}
+            {/* <Dropzone onDrop={this.handleDropImage}>
+               <div>Drag your pictures here</div>
+            </Dropzone> */}
 
             <Button variant="contained" className='add-file-button'
                style={{backgroundColor: '#8bc34a', width: '100%', height: 30, marginTop: 20}}>
-               <Input type='file' className='add-file-input' onChange={this.handleSelectImage} />
+               <Input type='file' name='file' className='add-file-input' onChange={this.handleSelectImage} />
                <div className='add-file-text-row'>
                   <Typography variant='button' >Add images</Typography>
                </div>
@@ -111,6 +136,18 @@ class AddItemForm extends Component {
             </div>
          </form>
       );
+   }
+}
+
+const styles = {
+   image: {
+      width: 100,
+      height: 100,
+      borderRadius: 5,
+      marginTop: 20
+   },
+   dropZone: {
+      marginTop: 20,
    }
 }
 
