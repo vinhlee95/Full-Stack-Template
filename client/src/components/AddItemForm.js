@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import {Typography, Input, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
+import {Typography, Input, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
+const CLOUDINARY_UPLOAD_PRESET = "ak94q4cn";
+
 class AddItemForm extends Component {
-   state = { name: '', url: '', category: '', price: '', file: null, imagePreviewUrl: '' }
+   state = { 
+      name: '', url: '', category: '', price: '', file: null, imagePreviewUrl: '', uploadedFileUrl: '',
+   }
 
    handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
@@ -18,7 +20,7 @@ class AddItemForm extends Component {
       reader.onloadend = () => {
          this.setState({
             file,
-            imagePreviewUrl: reader.result
+            imagePreviewUrl: reader.result,
          })
       }
 
@@ -27,11 +29,27 @@ class AddItemForm extends Component {
 
    handleAddItem = (e) => {
       e.preventDefault();
-      const {file } = this.state;
-      console.log(file)
-      axios.post('http://localhost:5000/upload', file)
-         .then(res => console.log(res))
-         .catch(error => console.log(error));
+      const {name, url, category, price, file } = this.state;
+
+      // create form data
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+      // invoke action creators
+      
+      // upload image to Cloudinary & show snackbar when done
+      this.props.uploadImage(formData, (imageUrl) =>  {
+
+         // save data to mongoDB
+         this.props.saveData(name, url, category, price, imageUrl);
+
+         this.props.handleSaveSuccess();
+      })
+
+      // hide the form and show the spinner
+      this.props.handleCloseModal();
+      this.props.handleShowSpinner();
    }
 
    render() {
@@ -41,6 +59,7 @@ class AddItemForm extends Component {
                            src={imagePreviewUrl} alt='item'
                            style={styles.image} /> 
                         : null
+      // show spinner while data is being saved
 
       return(
          <form style={{ backgroundColor: 'white', zIndex: 1000}} onSubmit={e => this.handleAddItem(e)} >
@@ -102,9 +121,6 @@ class AddItemForm extends Component {
             />
             
             {imagePreview}
-            {/* <Dropzone onDrop={this.handleDropImage}>
-               <div>Drag your pictures here</div>
-            </Dropzone> */}
 
             <Button variant="contained" className='add-file-button'
                style={{backgroundColor: '#8bc34a', width: '100%', height: 30, marginTop: 20}}>
