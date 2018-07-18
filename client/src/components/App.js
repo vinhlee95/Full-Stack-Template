@@ -7,6 +7,9 @@ import Modal from './UI/Modal';
 import Spinner from './UI/Spinner';
 import Snackbar from './UI/Snackbar';
 
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
 class App extends Component {
 
    state = {
@@ -15,11 +18,17 @@ class App extends Component {
       dataSaved: false,
    }
 
+   componentDidMount() {
+      this.props.fetchItems();
+   }
+
+
    handleCloseModal = () => this.setState({ showAddModal: false });
    handleShowSpinner = () => this.setState({ showSpinner: true })
    handleSaveSuccess = () => this.setState({showSpinner: false, dataSaved: true })
 
    render() {
+      console.log(this.props.items)
       if(this.state.showSpinner) {
          return <Spinner />;
       }
@@ -64,4 +73,8 @@ class App extends Component {
    }
 }
 
-export default App;
+const mapStateToProps = ({ items }) => {
+   return { items }
+}
+
+export default connect(mapStateToProps, actions )(App);

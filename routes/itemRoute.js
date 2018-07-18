@@ -1,8 +1,14 @@
 const ItemModel = require('../models/Items');
 
 module.exports = (app) => {
-   app.get('/', (req, res) => {
-      res.send('Hi there!')
+   app.get('/', async (req, res) => {
+      try {
+         // send back collection
+         const collection = await ItemModel.find({});
+         res.send(collection);
+      } catch(error) {
+         console.log(error)
+      }
    });
 
    app.post('/upload', async (req, res) => {

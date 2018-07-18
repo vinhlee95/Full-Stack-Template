@@ -1,8 +1,15 @@
-import { SAVE_DATA, UPLOAD_IMAGE } from './types';
+import { SAVE_DATA, UPLOAD_IMAGE, FETCH_ITEMS } from './types';
 import axios from 'axios';
 
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ds2t6ps9w/image/upload'
 
+export const fetchItems = () => async (dispatch) =>  {
+   const res = await axios.get('http://localhost:5000');
+   dispatch({ 
+      type: FETCH_ITEMS,
+      payload: res.data
+   })
+}
 
 
 export const saveData = (name, url, category, price, imageUrl, callback) => async (dispatch) => {
