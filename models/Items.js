@@ -12,11 +12,10 @@ const ItemModel = new mongoose.Schema({
       type: Number
    },
    url: {
-      type: String, required: false
+      type: String
    },
-   image: {
-      data: Buffer,
-      contentType: String
+   imageUrl: {
+      type: String
    },
    date: {
       type: Date, default: Date.now(),

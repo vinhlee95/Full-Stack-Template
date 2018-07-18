@@ -42,9 +42,7 @@ class AddItemForm extends Component {
       this.props.uploadImage(formData, (imageUrl) =>  {
 
          // save data to mongoDB
-         this.props.saveData(name, url, category, price, imageUrl);
-
-         this.props.handleSaveSuccess();
+         this.props.saveData(name, url, category, price, imageUrl, () => this.props.handleSaveSuccess() );
       })
 
       // hide the form and show the spinner
