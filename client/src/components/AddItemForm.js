@@ -8,7 +8,7 @@ const CLOUDINARY_UPLOAD_PRESET = "ak94q4cn";
 
 class AddItemForm extends Component {
    state = { 
-      name: '', url: '', category: '', price: '', file: null, imagePreviewUrl: '', uploadedFileUrl: '',
+      name: '', description: '', url: '', category: '', price: '', file: null, imagePreviewUrl: '', uploadedFileUrl: '',
    }
 
    handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
@@ -73,6 +73,18 @@ class AddItemForm extends Component {
                }}
                onChange={this.handleChange}
                placeholder="Name"
+               fullWidth
+               style={{ marginBottom: 10 }}
+            />
+
+            <TextField
+               label="Description"
+               value={this.state.description}
+               inputProps = {{
+                  name: 'description'
+               }}
+               onChange={this.handleChange}
+               placeholder="description"
                fullWidth
                style={{ marginBottom: 10 }}
             />

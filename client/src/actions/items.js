@@ -12,11 +12,12 @@ export const fetchItems = () => async (dispatch) =>  {
 }
 
 
-export const saveData = (name, url, category, price, imageUrl, callback) => async (dispatch) => {
+export const saveData = (name, description, url, category, price, imageUrl, callback) => async (dispatch) => {
 
    // upload data to MongoDB;
    const res = await axios.post('http://localhost:5000/upload', {
       name,
+      description,
       url,
       category,
       price,

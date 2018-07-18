@@ -32,7 +32,7 @@ const SimpleMediaCard = (props) =>  {
             {props.name}
           </Typography>
           <Typography component="p">
-            Item description
+            {props.description?props.description:''}
           </Typography>
         </CardContent>
         <CardActions>
