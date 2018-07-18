@@ -7,8 +7,10 @@ import Modal from './UI/Modal';
 import Spinner from './UI/Spinner';
 import Snackbar from './UI/Snackbar';
 
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import Card from './UI/Card';
 
 class App extends Component {
 
@@ -32,11 +34,35 @@ class App extends Component {
       if(this.state.showSpinner) {
          return <Spinner />;
       }
+
+      // spinning while data is fetching
+      if(_.isEmpty(this.props.items)) {
+         return <Spinner />
+      }
+
+      // render items
+      let items;
+      items = this.props.items.map((item) => {
+         return(
+            <Card
+               key={item._id}
+               name={item.name}
+               image={item.imageUrl}
+               url={item.url}
+            />
+         );
+      });
+
       return (
          <div className="App">
             <Typography variant="display1" gutterBottom>
                Your wish list
             </Typography>
+            
+            <div className="card-container">
+               {items}
+            </div>
+
             <div className='button-row'>
             <Button variant="fab" color="primary" aria-label="Add"
                onClick={() => this.setState({ showAddModal: true })}>

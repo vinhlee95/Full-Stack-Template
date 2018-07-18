@@ -1,7 +1,13 @@
 body {
-   width: 60%;
+   width: 90%;
    margin: 10px auto !important;
    display: 'block'
+}
+
+.card-container {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   margin-top: 50px;
 }
 
 .form-container {
@@ -12,8 +18,8 @@ body {
 }
 
 .button-row {
-   display: flex;
-   justify-content: flex-end;
+   position: absolute;
+   bottom: 30px; right: 30px;
 }
 
 
