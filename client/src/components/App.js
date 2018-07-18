@@ -20,8 +20,16 @@ class App extends Component {
       dataSaved: false,
    }
 
-   componentDidMount() {
+   componentWillMount() {
       this.props.fetchItems();
+   }
+
+   componentWillReceiveProps(nextProps) {
+      console.log(this.props.items.length);
+      console.log(nextProps.items.length);
+      if(nextProps.items.length !== this.props.items.length) {
+         this.props.fetchItems();
+      }
    }
 
 
@@ -30,29 +38,32 @@ class App extends Component {
    handleSaveSuccess = () => this.setState({showSpinner: false, dataSaved: true })
 
    render() {
-      console.log(this.props.items)
+      console.log('App rendered')
       if(this.state.showSpinner) {
          return <Spinner />;
       }
 
-      // spinning while data is fetching
-      if(_.isEmpty(this.props.items)) {
-         return <Spinner />
-      }
-
       // render items
       let items;
-      items = this.props.items.map((item) => {
-         return(
-            <Card
-               key={item._id}
-               name={item.name}
-               image={item.imageUrl}
-               url={item.url}
-            />
-         );
-      });
-
+      if (!_.isEmpty(this.props.items)) {
+         items = this.props.items.map((item) => {
+            let price = `${item.price} €`;
+            return(
+               <Card
+                  key={item._id}
+                  name={item.name}
+                  description={item.description}
+                  image={item.imageUrl}
+                  url={item.url}
+                  chipLabel={item.category}
+                  price={price}
+               />
+            );
+         });
+      } else {
+         items = null;
+      }
+      
       return (
          <div className="App">
             <Typography variant="display1" gutterBottom>

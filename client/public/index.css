@@ -6,19 +6,42 @@ body {
 
 .card-container {
    display: grid;
-   grid-template-columns: repeat(3, 1fr);
+   grid-template-columns: repeat(2, 1fr);
+   grid-gap: 20px;
    margin-top: 50px;
 }
 
+.card-content {
+   min-height: 280px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+.card-button-row {
+   display: flex;
+   justify-content: center;
+}
+
 .form-container {
-   position: absolute;
+   position: fixed;
    width: 80%;
    top: 10%;
    left: 10%
 }
 
+.tags-container {
+   width: 60%;
+   margin: 20px auto 0;
+   display: flex; justify-content: center;
+}
+
+.chip {
+   margin: 0 5px;
+}
+
 .button-row {
-   position: absolute;
+   position: fixed;
    bottom: 30px; right: 30px;
 }
 
@@ -59,6 +82,9 @@ body {
 }
 
 @media only screen and (min-width: 1024px) {
+   .card-container {
+      grid-template-columns: repeat(3, 1fr)
+   }
    .form-container {
       width: 40%;
       left: 30%;

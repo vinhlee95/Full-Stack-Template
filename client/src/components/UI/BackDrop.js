@@ -5,7 +5,7 @@ const BackDrop = (props) => {
       <div
          onClick={props.handleClickBackDrop} 
          style={{
-         position: 'absolute',
+         position: 'fixed',
          top: 0, left: 0,
          width: '100%', height: '100vh',
          backgroundColor: 'rgba(256,256,256,0.6)',

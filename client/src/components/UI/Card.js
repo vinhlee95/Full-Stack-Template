@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Chip from './Chip';
 
 const styles = {
   card: {
@@ -15,7 +16,7 @@ const styles = {
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-  },
+  }
 };
 
 const SimpleMediaCard = (props) =>  {
@@ -25,21 +26,30 @@ const SimpleMediaCard = (props) =>  {
         <CardMedia
           image={props.image}
           title="Item"
-          style={{height: 100}}
+          style={{height: 200}}
         />
-        <CardContent>
-          <Typography gutterBottom variant="headline" component="h2">
-            {props.name}
-          </Typography>
-          <Typography component="p">
-            {props.description?props.description:''}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" color="primary" onClick={() => window.location.href=`${props.url}`}>
-            Learn More
-          </Button>
-        </CardActions>
+        <div className='card-content'>
+            <CardContent>
+               <Typography gutterBottom variant="headline" component="h2">
+                  {props.name}
+               </Typography>
+               <Typography component="p">
+                  {props.description?props.description:''}
+               </Typography>
+               <div className='tags-container'>
+                  <Chip label={props.chipLabel} />
+                  <Chip label={props.price} />
+               </div> 
+            </CardContent>
+            <CardActions className='card-button-row'>
+               <Button size="small" color="primary" onClick={() => window.location.href=`${props.url}`}>
+                  Learn More
+               </Button>
+               <Button size='small' color='secondary'>
+                  Remove
+               </Button>
+            </CardActions>
+        </div>
       </Card>
   );
 }

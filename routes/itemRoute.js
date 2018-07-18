@@ -12,10 +12,10 @@ module.exports = (app) => {
    });
 
    app.post('/upload', async (req, res) => {
-      const { name, url, category, price, imageUrl } = req.body;
+      const { name, description, url, category, price, imageUrl } = req.body;
       // create new record in db
       const newItem = new ItemModel({
-         name, url, category, price, imageUrl
+         name, description, url, category, price, imageUrl
       });
       console.log(newItem)
       

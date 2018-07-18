@@ -29,7 +29,7 @@ class AddItemForm extends Component {
 
    handleAddItem = (e) => {
       e.preventDefault();
-      const {name, url, category, price, file } = this.state;
+      const {name, description, url, category, price, file } = this.state;
 
       // create form data
       const formData = new FormData();
@@ -42,7 +42,7 @@ class AddItemForm extends Component {
       this.props.uploadImage(formData, (imageUrl) =>  {
 
          // save data to mongoDB
-         this.props.saveData(name, url, category, price, imageUrl, () => this.props.handleSaveSuccess() );
+         this.props.saveData(name, description, url, category, price, imageUrl, () => this.props.handleSaveSuccess() );
       })
 
       // hide the form and show the spinner
