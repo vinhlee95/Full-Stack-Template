@@ -64,10 +64,11 @@ class App extends Component {
             </div>
 
             <div className='button-row'>
-            <Button variant="fab" color="primary" aria-label="Add"
-               onClick={() => this.setState({ showAddModal: true })}>
-               <AddIcon />
-            </Button>
+               <Button variant="fab" color="primary" aria-label="Add"
+                  onClick={() => this.setState({ showAddModal: true })}>
+                  <AddIcon />
+               </Button>
+            </div>
             {
                this.state.dataSaved
                ?
@@ -94,7 +95,6 @@ class App extends Component {
             }
 
             </div>
-         </div>
       );
    }
 }
