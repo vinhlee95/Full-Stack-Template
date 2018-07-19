@@ -12,7 +12,7 @@ body {
 }
 
 .card-content {
-   min-height: 280px;
+   min-height: 350px;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
@@ -26,13 +26,13 @@ body {
 .form-container {
    position: fixed;
    width: 80%;
-   top: 10%;
+   top: 5%;
    left: 10%
 }
 
 .tags-container {
    width: 60%;
-   margin: 20px auto 0;
+   margin: 0 auto;
    display: flex; justify-content: center;
 }
 

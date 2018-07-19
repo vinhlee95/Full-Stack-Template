@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -26,7 +25,7 @@ const SimpleMediaCard = (props) =>  {
         <CardMedia
           image={props.image}
           title="Item"
-          style={{height: 200}}
+          style={{height: 350}}
         />
         <div className='card-content'>
             <CardContent>
@@ -36,11 +35,11 @@ const SimpleMediaCard = (props) =>  {
                <Typography component="p">
                   {props.description?props.description:''}
                </Typography>
-               <div className='tags-container'>
-                  <Chip label={props.chipLabel} />
-                  <Chip label={props.price} />
-               </div> 
             </CardContent>
+            <div className='tags-container'>
+               <Chip label={props.chipLabel} />
+               <Chip label={props.price} />
+            </div> 
             <CardActions className='card-button-row'>
                <Button size="small" color="primary" onClick={() => window.location.href=`${props.url}`}>
                   Learn More

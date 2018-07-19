@@ -24,18 +24,13 @@ class App extends Component {
       this.props.fetchItems();
    }
 
-   componentWillReceiveProps(nextProps) {
-      console.log(this.props.items.length);
-      console.log(nextProps.items.length);
-      if(nextProps.items.length !== this.props.items.length) {
-         this.props.fetchItems();
-      }
-   }
-
 
    handleCloseModal = () => this.setState({ showAddModal: false });
    handleShowSpinner = () => this.setState({ showSpinner: true })
-   handleSaveSuccess = () => this.setState({showSpinner: false, dataSaved: true })
+   handleSaveSuccess = () => {
+      this.setState({showSpinner: false, dataSaved: true });
+      this.props.fetchItems();
+   }
 
    render() {
       console.log('App rendered')
