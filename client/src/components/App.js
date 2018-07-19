@@ -18,19 +18,28 @@ class App extends Component {
       showAddModal: false,
       showSpinner: false,
       dataSaved: false,
+      itemRemoved: false,
    }
 
    componentWillMount() {
       this.props.fetchItems();
    }
 
+   componentWillReceiveProps(nextProps) {
+      const oldItems = this.props.items; console.log('old items', oldItems)
+      const newItems = nextProps.items; console.log('new items', newItems)
+      if(oldItems.length < newItems.length) {
+         this.setState({ showSpinner: false, dataSaved: true, itemRemoved: false })
+         this.props.fetchItems();
+      } 
+      if(oldItems.length > newItems.length) {
+         this.setState({ dataSaved: true, itemRemoved: true })
+      }
+   }
+
 
    handleCloseModal = () => this.setState({ showAddModal: false });
-   handleShowSpinner = () => this.setState({ showSpinner: true })
-   handleSaveSuccess = () => {
-      this.setState({showSpinner: false, dataSaved: true });
-      this.props.fetchItems();
-   }
+   handleShowSpinner = () => this.setState({ showSpinner: true });
 
    render() {
       console.log('App rendered')
@@ -46,6 +55,7 @@ class App extends Component {
             return(
                <Card
                   key={item._id}
+                  id={item._id}
                   name={item.name}
                   description={item.description}
                   image={item.imageUrl}
@@ -79,6 +89,13 @@ class App extends Component {
                this.state.dataSaved
                ?
                <Snackbar 
+                  label={
+                     this.state.itemRemoved
+                     ?
+                     'Item removed'
+                     :
+                     'New item added'
+                  }
                   snackbarOpen
                   handleCloseSnackbar={() => this.setState({ dataSaved: false })} />
                : null
@@ -93,7 +110,6 @@ class App extends Component {
                      <AddItemForm 
                         handleCloseModal={this.handleCloseModal}
                         handleShowSpinner={this.handleShowSpinner}
-                        handleSaveSuccess={this.handleSaveSuccess}
                      />
                   </SlideModal>
                </Modal>

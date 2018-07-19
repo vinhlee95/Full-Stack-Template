@@ -1,6 +1,7 @@
 const ItemModel = require('../models/Items');
 
 module.exports = (app) => {
+   // fetch items route
    app.get('/', async (req, res) => {
       try {
          // send back collection
@@ -11,6 +12,7 @@ module.exports = (app) => {
       }
    });
 
+   // create new item route
    app.post('/upload', async (req, res) => {
       const { name, description, url, category, price, imageUrl } = req.body;
       // create new record in db
@@ -25,5 +27,17 @@ module.exports = (app) => {
          console.log(`${item.name} has been successfully saved`);
       });
       res.send(newItem)
-   })
+   });
+
+   // delete item route
+   app.get('/item/:id', async (req,res) => {
+      const id = req.params.id;
+      ItemModel.findOneAndRemove({ _id: id })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+
+      // send back collection
+      const collection = await ItemModel.find({});
+      res.send(collection);
+   });
 }

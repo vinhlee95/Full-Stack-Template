@@ -31,7 +31,7 @@ class SimpleSnackbar extends React.Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">New item added</span>}
+          message={<span id="message-id">{this.props.label}</span>}
           action={[
             <IconButton
               key="close"
