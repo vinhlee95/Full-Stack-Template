@@ -28,7 +28,7 @@ class App extends Component {
    componentWillReceiveProps(nextProps) {
       const oldItems = this.props.items; console.log('old items', oldItems)
       const newItems = nextProps.items; console.log('new items', newItems)
-      if(oldItems.length < newItems.length) {
+      if(oldItems.length < newItems.length & oldItems.length !== 0) {
          this.setState({ showSpinner: false, dataSaved: true, itemRemoved: false })
          this.props.fetchItems();
       } 
