@@ -24,7 +24,7 @@ class SimpleMediaCard extends Component  {
          <CardMedia
             image={image}
             title="Item"
-            style={{height: 350}}
+            style={{height: 200}}
          />
          <div className='card-content'>
                <CardContent>
