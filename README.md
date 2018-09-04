@@ -16,6 +16,6 @@ A full-stack web application allow users to store, add and delete their wish-lis
 
 ## Demo
 ### Home 
-![Home](screenshots/home_desktop.png)
+![Home](screenshots/home_desktop.PNG)
 ### Add a new item
-![New Item](screenshots/add_desktop.png)
+![New Item](screenshots/add_desktop.PNG)
