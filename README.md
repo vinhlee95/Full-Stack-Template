@@ -12,7 +12,7 @@ A full-stack web application allow users to store, add and delete their wish-lis
 ### Front-end
 * React, Redux, Redux-thunk, Axios, Lodash, React-dropzone, Superagent
 ### UI Library
-* MaterialUI
+* materialUI
 
 ## Demo
 ### Home 
